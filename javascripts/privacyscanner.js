@@ -6284,7 +6284,7 @@ window.jQuery = window.$ = jQuery;
         "   <span class='soft'>from <a href='http://www.reclaimprivacy.org/facebook'>reclaimprivacy.org</a></span>",
         "   <span class='source'>",
         "       <span class='soft'>&nbsp;&nbsp;&nbsp;&nbsp;languages: </span>",
-        "       <span><a href='#' class='privacy-translation-english'>English</a> &middot; <a href='#' class='privacy-translation-german'>Deutsch</a></span>",
+        "       <span><a href='#' class='privacy-translation-english'>English</a> &middot; <a href='#' class='privacy-translation-german'>Deutsch</a> &middot; <a href='#' class='privacy-translation-nynorsk'>Norsk (nynorsk)</a></span>",
         "   </span>",
         "</div>",
 
@@ -6427,7 +6427,7 @@ window.jQuery = window.$ = jQuery;
         " <span class='soft'>von <a href='http://www.reclaimprivacy.org/facebook'>reclaimprivacy.org</a></span>",
         " <span class='source'>",
         " <span class='soft'>&nbsp;&nbsp;&nbsp;&nbsp;&Uuml;bersetzungen: </span>",
-        " <span><a href='#' class='privacy-translation-english'>English</a> &middot; <a href='#' class='privacy-translation-german'>Deutsch</a></span>",
+        " <span><a href='#' class='privacy-translation-english'>English</a> &middot; <a href='#' class='privacy-translation-german'>Deutsch</a> &middot; <a href='#' class='privacy-translation-nynorsk'>Norsk (nynorsk)</a></span>",
         " </span>",
         "</div>",
 
@@ -6537,6 +6537,134 @@ window.jQuery = window.$ = jQuery;
         "</div>",
 
         "<div class='privacy-scanner-status'>arbeitet...</div>",
+
+        ""
+    ].join('');
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //              NORWEGIAN NYNORSK
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    HTMLCONTENT['nynorsk'] = [
+        "<div class='privacy-scanner-titlebar'>",
+        "   <h1>privacy scanner</h1>",
+        "   &nbsp;&nbsp;<span class='soft'>ikkje glem &aring; </span> <a href='http://www.facebook.com/pages/Reclaim-Privacy/121897834504447'>f&oslash;lgje oss p&aring; Facebook</a> <span class='soft'>for &aring; h&oslash;yre om dei nyaste oppdateringane</span>",
+        "   <span class='soft'>fr&aring; <a href='http://www.reclaimprivacy.org/facebook'>reclaimprivacy.org</a></span>",
+        "   <span class='source'>",
+        "       <span class='soft'>&nbsp;&nbsp;&nbsp;&nbsp;spr&aring;k: </span>",
+        "       <span><a href='#' class='privacy-translation-english'>Engelsk</a> &middot; <a href='#' class='privacy-translation-german'>Deutsch</a> &middot; <a href='#' class='privacy-translation-nynorsk'>Norsk (nynorsk)</a></span>",
+        "   </span>",
+        "</div>",
+
+        "<div class='wrongdomain-splash'>",
+        "   Etter &aring; ha lagt til dette bokmerket m&aring; du <a href='http://www.facebook.com/settings/?tab=privacy&ref=mb'>opne personverninnstillingane dine p&aring; Facebook</a>, <strong>n&aring;r du er p&aring; Facebook</strong> kan du k&oslash;yre denne personvernkontrollen igjen.",
+        "   <a class='close' href='#'>x</a>",
+        "</div>",
+
+        "<div class='scanners'>",
+
+        // Instant Personalization scanner UI (Direkte personalisering, i følgje nn.fb-omsetjarane...ok...)
+        "       <div class='state-inprogress scanner-instantpersonalization'>",
+        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
+        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
+        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
+        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
+        "           <span class='indicator caution indicator-caution'>&nbsp;&aring;tvaring&nbsp;&nbsp;</span>",
+
+        "           <span class='content inprogress'><span class='soft'>kontrollerer innstillingar for Direkte personalisering...</span></span>",
+        "           <span class='content fixing'><span class='soft'>reparerer innstillingar for Direkte personalisering...</span></span>",
+        "           <span class='content insecure'><a target='_blank' href='http://www.facebook.com/settings/?tab=privacy&section=applications&field=instant_personalization'>Direkte personalisering</a> deler personleg informasjon med nettstader utanfor Facebook. <a class='action-optoutinstantpersonalization uiButton uiButtonConfirm' href='#'>Vel vekk Direkte personalisering</a></span>",
+        "           <span class='content caution'><a target='_blank' href='http://www.facebook.com/settings/?tab=privacy&section=applications&field=instant_personalization'>Direkte personalisering</a> deler personleg informasjon med nettstader utanfor Facebook. <a class='action-optoutinstantpersonalization uiButton uiButtonConfirm' href='#'>Vel vekk Direkte personalisering</a></span>",
+        "           <span class='content good'><span class='soft'>du har valt vekk funksjonen Direkte personalisering</span></span>",
+        "       </div>",
+
+        // Personal Information scanner UI
+        "       <div class='scanner-personalinfo state-inprogress'>",
+        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
+        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
+        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
+        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
+        "           <span class='indicator caution indicator-caution'>&nbsp;&aelig;tvaring&nbsp;&nbsp;</span>",
+
+        "           <span class='content inprogress'><span class='soft'>kontrollerer personleg informasjon...</span></span>",
+        "           <span class='content fixing'><span class='soft'>avgrenser personleg informasjon til berre venene dine...</span></span>",
+        "           <span class='content insecure'>ein del av den personlege informasjonen din er tilgjengeleg for heile internettet, du burde endre dei <a href='http://www.facebook.com/settings/?tab=privacy&section=personal_content' target='_blank'>personlege innstillingane</a> og deretter <a class='privacy-rescan-personalinfo uiButton uiButtonConfirm' href='#'>kontrollere p&aring; nytt</a></span>",
+        "           <span class='content insecure'>ein del av den personlege informasjonen din er tilgjengeleg for heile internettet, du burde endre dei <a href='http://www.facebook.com/settings/?tab=privacy&section=personal_content' target='_blank'>personlege innstillingane</a> og deretter <a class='privacy-rescan-personalinfo uiButton uiButtonConfirm' href='#'>kontrollere p&aring; nytt</a></span>",
+        "           <span class='content good'><span class='soft'>all den personlege informasjonen din er avgrensa til venene dine eller f&aelig;rre</span></span>",
+        "       </div>",
+
+        // Contact Information scanner UI
+        "       <div class='scanner-contactinfo state-inprogress'>",
+        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
+        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
+        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
+        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
+        "           <span class='indicator caution indicator-caution'>&nbsp;&aelig;tvaring&nbsp;&nbsp;</span>",
+
+        "           <span class='content inprogress'><span class='soft'>kontrollerer kontaktinformasjon...</span></span>",
+        "           <span class='content fixing'><span class='soft'>avgrenser kontaktinformasjon til berre venene dine...</span></span>",
+        "           <span class='content insecure'>ein del av kontaktinformasjonen din er tilgjengeleg for heile internettet, du burde endre <a href='http://www.facebook.com/settings/?tab=privacy&section=contact' target='_blank'>kontaktinnstillingane</a> og deretter <a class='privacy-rescan-contactinfo uiButton uiButtonConfirm' href='#'>kontrollere p&aring; nytt</a></span>",
+        "           <span class='content caution'>ein del av kontaktinformasjonen din er tilgjengeleg for heile internettet, du burde endre <a href='http://www.facebook.com/settings/?tab=privacy&section=contact' target='_blank'>kontaktinnstillingane</a> og deretter <a class='privacy-rescan-contactinfo uiButton uiButtonConfirm' href='#'>kontrollere p&aring; nytt</a></span>",
+        "           <span class='content good'><span class='soft'>all kontaktinformasjonen din er avgrensa til venene dine eller f&aelig;rre</span></span>",
+        "       </div>",
+
+        // Friends/Tags/Connections Information scanner UI
+        "       <div class='scanner-friendstagsconnections state-inprogress'>",
+        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
+        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
+        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
+        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
+        "           <span class='indicator caution indicator-caution'>&nbsp;&aelig;tvaring&nbsp;&nbsp;</span>",
+
+        "           <span class='content inprogress'><span class='soft'>kontrollerer informasjon om vener, merker og tilknytingar...</span></span>",
+        "           <span class='content fixing'><span class='soft'>avgrensar informasjon om vener, merker og tilknytingar til berre venene dine...</span></span>",
+        "           <span class='content insecure'>ein del av informasjonen din om vener, merker og tilknytingar er tilgjengeleg for heile internettet, du burde endre <a href='http://www.facebook.com/settings/?tab=privacy&section=profile_display' target='_blank'>innstillingane dine for vener, merkjer og tilknytingar</a> og deretter <a class='privacy-rescan-friendstagsconnections uiButton uiButtonConfirm' href='#'>kontrollere p&aring; nytt</a></span>",
+        "           <span class='content caution'>ein del av informasjonen din om vener, merker og tilknytingar er tilgjengeleg for heile internettet, du burde endre <a href='http://www.facebook.com/settings/?tab=privacy&section=profile_display' target='_blank'>innstillingane dine for vener, merkjer og tilknytingar</a> og deretter <a class='privacy-rescan-friendstagsconnections uiButton uiButtonConfirm' href='#'>kontrollere p&aring; nytt</a></span>",
+        "           <span class='content good'><span class='soft'>all informasjonen din om vener, merker og tilknytingar er avgrensa til venene dine eller f&aelig;rre</span></span>",
+        "       </div>",
+
+        // Friend Sharing scanner UI
+        "       <div class='scanner-friendsharing state-inprogress'>",
+        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
+        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
+        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
+        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
+        "           <span class='indicator caution indicator-caution'>&nbsp;&aelig;tvaring&nbsp;&nbsp;</span>",
+
+        "           <span class='content inprogress'><span class='soft'>kontrollerer innstillingar for venskapsdeling...</span></span>",
+        "           <span class='content fixing'><span class='soft'>reparerer innstillingar for venskapsdeling...</span></span>",
+        "           <span class='content insecure'>venene dine kan <a target='_blank' href='http://www.facebook.com/settings/?tab=privacy&section=applications&field=friends_share'>dele den personlege informasjonen din ved eit uhell</a>. <a class='action-disablefriendsharing uiButton uiButtonConfirm' href='#'>Hindre venene dine i &aelig; dele informasjonen din</a></span>",
+        "           <span class='content caution'>your friends can <a target='_blank' href='http://www.facebook.com/settings/?tab=privacy&section=applications&field=friends_share'>dele den personlege informasjonen din ved eit uhell</a>. <a class='action-disablefriendsharing uiButton uiButtonConfirm' href='#'>Hindre venene dine i &aelig; dele informasjonen din</a></span>",
+        "           <span class='content good'><span class='soft'>venene dine er verna fr&aelig; &aelig; tilfeldig dele den personlege informasjonen din</span></span>",
+        "       </div>",
+
+        // Blocked Apps scanner UI
+        "       <div class='scanner-blockedapps state-inprogress'>",
+        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
+        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
+        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
+        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
+        "           <span class='indicator caution indicator-caution'>&nbsp;&aelig;tvaring&nbsp;&nbsp;</span>",
+
+        "           <span class='content inprogress'><span class='soft'>kontrollerer sperra tilleggsprogram...</span></span>",
+        "           <span class='content fixing'><span class='soft'>sperrar tilleggsprogram...</span></span>",
+        "           <span class='content insecure'>visse nettstader kan automatisk f&aelig; tilgang til personleg informasjon. <a class='action-blockdocs uiButton uiButtonConfirm' href='#'>Sperr Microsoft Docs</a>, <a class='action-blockpandora uiButton uiButtonConfirm' href='#'>Sperr Pandora</a>, og<a class='action-blockyelp uiButton uiButtonConfirm' href='#'>Sperr Yelp</a>.</span>",
+        "           <span class='content caution'>visse nettstader kan automatisk f&aelig; tilgang til personleg informasjon. <a class='action-blockdocs uiButton uiButtonConfirm' href='#'>Sperr Microsoft Docs</a>, <a class='action-blockpandora uiButton uiButtonConfirm' href='#'>Sperr Pandora</a>, og<a class='action-blockyelp uiButton uiButtonConfirm' href='#'>Sperr Yelp</a>.</span>",
+        "           <span class='content good'><span class='soft'>du har sperra alle kjende tilleggsprogram som kan leke den personlege informasjonen din</span></span>",
+        "       </div>",
+
+        "</div>",
+
+        "<div class='privacy-scanner-footer'>",
+        "   la venene dine f&aelig; vite korleis dei kan betre personvernet sitt òg",
+        '   <a name="fb_share" type="button_count" share_url="http://www.reclaimprivacy.org/facebook" href="http://www.facebook.com/sharer.php">Del</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>',
+        "   <a class='close-privacy-scanner uiButton uiButtonConfirm' href='#'>ferdig</a>",
+        "</div>",
+
+        "<div class='privacy-scanner-status'>i gang...</div>",
 
         ""
     ].join('');
