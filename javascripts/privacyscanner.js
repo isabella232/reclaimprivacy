@@ -6907,10 +6907,15 @@ window.jQuery = window.$ = jQuery;
             "}",
 
             // allow translations to work
-            ".language-english .language-german {display: none;}",
-            ".language-german .language-english {display: none;}",
             ".language-english .language-english {display: block;}",
+            ".language-english .language-german {display: none;}",
+            ".language-english .language-nynorsk {display: none;}",
             ".language-german .language-german {display: block;}",
+            ".language-german .language-english {display: none;}",
+            ".language-german .language-nynorsk {display: none;}",
+            ".language-nynorsk .language-nynorsk {display: block;}",
+            ".language-nynorsk .language-english {display: none;}",
+            ".language-nynorsk .language-german {display: none;}",
 
             // make sure our testing frames are hidden from view
             "iframe.utility-frame {display: none !important;}",
@@ -6954,6 +6959,7 @@ window.jQuery = window.$ = jQuery;
         var translationsHtml = '';
         translationsHtml += '<div class="language-english">' + HTMLCONTENT['english'] + '</div>';
         translationsHtml += '<div class="language-german">' + HTMLCONTENT['german'] + '</div>';
+        translationsHtml += '<div class="language-nynorsk">' + HTMLCONTENT['nynorsk'] + '</div>';
         $('.privacy-scanner').html(translationsHtml);
     };
 
@@ -7584,6 +7590,9 @@ window.jQuery = window.$ = jQuery;
         });
         $('.privacy-translation-german').click(function(){
             setInterfaceTranslation('german');
+        });
+        $('.privacy-translation-nynorsk').click(function(){
+            setInterfaceTranslation('nynorsk');
         });
 
         // make sure default loading of this javascript refreshes our indicators
