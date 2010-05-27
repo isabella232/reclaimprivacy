@@ -6755,22 +6755,6 @@ window.jQuery = window.$ = jQuery;
         "           <span class='content good'><span class='soft'>all of your photos are restricted to your friends or closer</span></span>",
         "       </div>",
 
-        // Status Updates scanner UI
-        // FIXME: translate this to Nynorsk
-        "       <div class='scanner-statusupdates state-inprogress'>",
-        "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
-        "           <span class='indicator inprogress indicator-inprogress'>&nbsp;kontrollerer&nbsp;</span>",
-        "           <span class='indicator insecure indicator-insecure'>&nbsp;usikker&nbsp;</span>",
-        "           <span class='indicator good indicator-good'>&nbsp;&nbsp;sikker&nbsp;&nbsp;</span>",
-        "           <span class='indicator caution indicator-caution'>&nbsp;&aring;tvaring&nbsp;&nbsp;</span>",
-
-        "           <span class='content inprogress'><span class='soft'>scanning Status Update settings...</span></span>",
-        "           <span class='content fixing'><span class='soft'>fixing Status Update settings...</span></span>",
-        "           <span class='content insecure'>Status Updates are currently sharing personal information with non-Facebook websites. <a class='action-privatizestatusupdates uiButton uiButtonConfirm' href='#'>Privatize Status Updates</a></span>",
-        "           <span class='content caution'>Status Updates are currently sharing personal information with friends of your friends, you should tweak <a href='http://www.facebook.com/settings/?tab=privacy&section=personal_content' target='_blank'>personal settings</a> and then <a id='privacy-rescan-statusupdates' class='uiButton uiButtonConfirm' href='#'>Re-scan</a></span>",
-        "           <span class='content good'><span class='soft'>you are not publicly broadcasting your Status Updates.</span></span>",
-        "       </div>",
-
         // Instant Personalization scanner UI (Direkte personalisering, i f√∏lgje nn.fb-omsetjarane...ok...)
         "       <div class='state-inprogress scanner-instantpersonalization'>",
         "           <span class='indicator fixing indicator-fixing'>&nbsp;&nbsp;reparerer&nbsp;&nbsp;</span>",
