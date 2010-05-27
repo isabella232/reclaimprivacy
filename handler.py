@@ -6,7 +6,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 
-VERSION = '32'
+VERSION = '51'
 
 
 class NewsletterEntry(db.Model):
@@ -60,7 +60,7 @@ class DesktopApp(webapp.RequestHandler):
 class Facebook(webapp.RequestHandler):
     def get(self):
         # detect MSIE
-        if 'MSIE' in os.environ['HTTP_USER_AGENT']:
+        if 'MSIE' in os.environ['HTTP_USER_AGENT'] and 'irefox' not in os.environ['HTTP_USER_AGENT']:
             browser = 'msie'
         elif 'Opera' in os.environ['HTTP_USER_AGENT']:
             browser = 'opera'
@@ -85,14 +85,14 @@ class Facebook(webapp.RequestHandler):
 
             # we need to serve a different bookmarklet Javascript for MSIE
             if browser == 'ie':
-                step_one_instructions = "Right-click this link and 'Add to Favorites'"
-                step_two_instructions = "<a href='http://www.facebook.com/settings/?tab=privacy&ref=mb'>Go to your Facebook privacy settings</a>, open your Favorites, and click the link called 'Scan for Privacy' once you are on Facebook"
+                step_one_instructions = "Right-click this grey button and 'Add to Favorites'"
+                step_two_instructions = "<a href='http://www.facebook.com/settings/?tab=privacy&ref=mb' target='_blank'>Go to your Facebook privacy settings</a>, open your Favorites, and click the link called 'Scan for Privacy' once you are on Facebook"
             elif browser == 'opera':
-                step_one_instructions = "Hold down the Shift key, then <strong>drag</strong> this link to your web browser bookmarks"
-                step_two_instructions = "<a href='http://www.facebook.com/settings/?tab=privacy&ref=mb'>Go to your Facebook privacy settings</a>, open your Favorites, and click the link called 'Scan for Privacy' once you are on Facebook"
+                step_one_instructions = "Hold down the Shift key, then <strong>drag</strong> this grey button to your browser toolbar"
+                step_two_instructions = "<a href='http://www.facebook.com/settings/?tab=privacy&ref=mb' target='_blank'>Go to your Facebook privacy settings</a>, open your Favorites, and click the link called 'Scan for Privacy' once you are on Facebook"
             else:
-                step_one_instructions = "Drag this link to your web browser bookmarks bar"
-                step_two_instructions = "<a href='http://www.facebook.com/settings/?tab=privacy&ref=mb'>Go to your Facebook privacy settings</a> and then click that bookmark once you are on Facebook."
+                step_one_instructions = "Drag this grey button to your browser bookmarks bar"
+                step_two_instructions = "<a href='http://www.facebook.com/settings/?tab=privacy&ref=mb' target='_blank'>Go to your Facebook privacy settings</a> and then click that bookmark once you are on Facebook."
 
             # build the page HTML
             leftbar_content = _get_leftbar_content()
@@ -111,42 +111,20 @@ class Facebook(webapp.RequestHandler):
     </div>
 
     <div id='content'>
-        <h1>Get Informed</h1>
-        <p>
-            Keep up with the latest news about privacy policies on Facebook.
-            <ul>
-                <li>
-                    <a href='http://www.eff.org/deeplinks/2010/04/facebook-further-reduces-control-over-personal-information'>The Erosion of Facebook Privacy</a>
-                    <span class='soft'>eff.org</span>
-                </li>
-                <li>
-                    <a href='http://www.eff.org/deeplinks/2009/12/facebooks-new-privacy-changes-good-bad-and-ugly'>Facebook Privacy Changes</a>
-                    <span class='soft'>eff.org</span>
-                </li>
-                <li>
-                    <a href='http://finance.yahoo.com/family-home/article/109538/7-things-to-stop-doing-now-on-facebook'>7 Things to Stop Doing Now on Facebook</a>
-                    <span class='soft'>yahoo.com</span>
-                </li>
-                <li>
-                    <a href='http://www.wired.com/epicenter/2010/05/facebook-rogue/'>Facebook's Gone Rogue</a>
-                    <span class='soft'>wired.com</span>
-                </li>
-            </ul>
-        </p>
 
         <h1>Get Protected</h1>
         <p>
             This website provides an <strong>independent</strong> and <strong>open</strong> tool for scanning
-            your Facebook privacy settings.  <em>The <a href='http://github.com/mjpizz/reclaimprivacy'>source code</a> and its development will always remain open and transparent.</em>
-            <p class='alert'>
-                <strong>Note:</strong> we are still working on privacy scans for your photos and status updates.  The tool does <strong>not</strong> check these yet,
-                so stay tuned for updates!
-            </p>
+            your Facebook privacy settings.
+            <div class='fresh-banner'>
+                <span class='label'>new!</span>
+                just added Photo Album privacy scanning
+            </div>
             <ol class='instructions'>
                 <li>
                     %(step_one_instructions)s:
                     <strong>
-                        <a class='bookmarklet' title="Scan for Privacy" href="javascript:(function(){var%%20script=document.createElement('script');script.src='http://%(bookmarklet_host)s/javascripts/privacyscanner.js';document.getElementsByTagName('head')[0].appendChild(script);})()">Scan for Privacy</a>
+                        <a class='bookmarklet' title="Scan for Privacy" href="javascript:(function(){var%%20script=document.createElement('script');script.src='http://%(bookmarklet_host)s/javascripts/privacyscanner.js';document.getElementsByTagName('head')[0].appendChild(script);})()">Scan for Privacy<span class='helper-arrow arrow-on-%(browser)s'></span></a>
                     </strong>
                 </li>
                 <li>
@@ -160,10 +138,13 @@ class Facebook(webapp.RequestHandler):
                     <a href="http://www.facebook.com/pages/Reclaim-Privacy/121897834504447">Follow us on Facebook</a>
                     to hear about the latest updates.
                 </li>
+                <li>
+                    Tell your friends to check their privacy too: <a name="fb_share" type="button_count" share_url="http://www.reclaimprivacy.org/facebook" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+                </li>
             </ol>
             <p class='need-help'>
                 <em>
-                    Having trouble? <a href='/help'>Check our help page</a> for tips and video walkthroughs.</a>
+                    Having trouble? <a href='/help'>Check our help page</a> for tips and video walkthroughs.
                 </em>
             </p
         </p>
@@ -189,10 +170,32 @@ class Facebook(webapp.RequestHandler):
                 </form>
             </p>
             <p>
-                    <em>Are you a coder?</em> <a href='http://github.com/mjpizz/reclaimprivacy'>Contribute to the source code</a> and help to
-                    keep the privacy scanner up-to-date.  You should <a href='http://www.nytimes.com/interactive/2010/05/12/business/facebook-privacy.html'>look at the settings</a>
-                    that we need to cover with this tool (provided by the NYTimes).
+                    Are you a programmer? <a href='http://github.com/mjpizz/reclaimprivacy'>Contribute to the source code</a> and help to
+                    keep the privacy scanner up-to-date.  All development will remain open and transparent.
             </p>
+        </p>
+
+        <h1>Stay Informed</h1>
+        <p>
+            Keep up with the latest news about privacy policies on Facebook.
+            <ul>
+                <li>
+                    <a href='http://www.eff.org/deeplinks/2010/04/facebook-further-reduces-control-over-personal-information'>The Erosion of Facebook Privacy</a>
+                    <span class='soft'>eff.org</span>
+                </li>
+                <li>
+                    <a href='http://www.eff.org/deeplinks/2009/12/facebooks-new-privacy-changes-good-bad-and-ugly'>Facebook Privacy Changes</a>
+                    <span class='soft'>eff.org</span>
+                </li>
+                <li>
+                    <a href='http://finance.yahoo.com/family-home/article/109538/7-things-to-stop-doing-now-on-facebook'>7 Things to Stop Doing Now on Facebook</a>
+                    <span class='soft'>yahoo.com</span>
+                </li>
+                <li>
+                    <a href='http://www.wired.com/epicenter/2010/05/facebook-rogue/'>Facebook's Gone Rogue</a>
+                    <span class='soft'>wired.com</span>
+                </li>
+            </ul>
         </p>
 
         <h1>Read Our Own Privacy Policy</h1>
@@ -202,19 +205,20 @@ class Facebook(webapp.RequestHandler):
                 <li>we <strong>never see</strong> your Facebook data</li>
                 <li>we <strong>never share</strong> your personal information</li>
             </ul>
-            Simple.  The scanner operates entirely within your own browser.
+            Simple.  After the scanner is downloaded from reclaimprivacy.org, it operates entirely
+            between your own browser and Facebook.
         </p>
 
         <h1>Be Security Conscious</h1>
         <p>
             Please <strong>be safe</strong>.  Make sure you know that a link (like this)
             or application (like those on Facebook) is <strong>trustworthy</strong> before
-            you install it.  We try to ensure a <strong>measure of accountability</strong> for our own link
+            you install it.  <strong>We try to ensure a measure of accountability</strong> for our own link
             by releasing all of our code (including this website itself) as open-source, and maintaining
             good communication about important updates.
         </p>
         <p>
-            You should <strong>never</strong> use this link on a secure
+            You should <strong>never</strong> use this scanner on a secure
             website like your bank or any other financial institution.  Keep
             in mind that those websites often have far more sensitive information than Facebook.
         </p>
@@ -231,13 +235,15 @@ class Facebook(webapp.RequestHandler):
         <div class='about-section'>
             <h2>about the community contributors</h2>
             <p>
-                Frieder contributed the German translation of the tool.
+                Frieder contributed the German translation of the tool.  <a href='http://www.bitwig.com'>Pablo</a> contributed the snazzy new logo.
+                <a href='http://github.com/leighman'>@leighman</a> contributed usability improvements to the website.
+                <a href='http://github.com/zkwentz'>@zkwentz</a> contributed status update privacy scans.
             </p>
             <h2>about the original author</h2>
             <p>
                 I am an avid Javascript developer and co-founder at <a href='http://www.olark.com/'>Olark</a> (check it out!).  You
                 can chat with me about ReclaimPrivacy.org on the <a href='/help'>help page</a>.  If you're with the press, please use
-                press@reclaimprivacy.org to reach me.
+                press@reclaimprivacy.org to reach us.
             </p>
         </div>
     </div>
@@ -257,6 +263,13 @@ class Facebook(webapp.RequestHandler):
 
 class Help(webapp.RequestHandler):
     def get(self):
+        # detect MSIE
+        if 'MSIE' in os.environ['HTTP_USER_AGENT'] and 'irefox' not in os.environ['HTTP_USER_AGENT']:
+            browser = 'msie'
+        elif 'Opera' in os.environ['HTTP_USER_AGENT']:
+            browser = 'opera'
+        else:
+            browser = 'other'
 
         # build the memcache key we will use
         version = VERSION
@@ -292,6 +305,7 @@ class Help(webapp.RequestHandler):
     <div id='content'>
 
         <h1>Frequently Asked Questions</h1>
+
         <p>
             <em>Here are some of the questions that many people like you have asked...</em>
         </p>
@@ -304,12 +318,12 @@ class Help(webapp.RequestHandler):
             <p class='answer'>
                 <em class='soft'>this grey box is the bookmark:</em>
                 <strong>
-                    <a class='bookmarklet' title="Scan for Privacy" href="javascript:(function(){var%%20script=document.createElement('script');script.src='http://%(bookmarklet_host)s/javascripts/privacyscanner.js';document.getElementsByTagName('head')[0].appendChild(script);})()">Scan for Privacy</a>
+                    <a class='bookmarklet' title="Scan for Privacy" href="javascript:(function(){var%%20script=document.createElement('script');script.src='http://%(bookmarklet_host)s/javascripts/privacyscanner.js';document.getElementsByTagName('head')[0].appendChild(script);})()">Scan for Privacy<span class='helper-arrow arrow-on-%(browser)s'></span></a>
                 </strong>
             </p>
             <p class='answer'>
                 <strong>After you have added that grey box bookmark</strong> you need to
-                <a href='http://www.facebook.com/settings/?tab=privacy&ref=mb'>go to your Facebook privacy settings</a>.
+                <a href='http://www.facebook.com/settings/?tab=privacy&ref=mb' target='_blank'>go to your Facebook privacy settings</a>.
                 <strong>Once you are on Facebook</strong>, you should click that bookmark.
             </p>
         </p>
@@ -335,7 +349,7 @@ class Help(webapp.RequestHandler):
             <p class='answer'>
                 <em class='soft'>this grey box is the bookmark:</em>
                 <strong>
-                    <a class='bookmarklet' title="Scan for Privacy" href="javascript:(function(){var%%20script=document.createElement('script');script.src='http://%(bookmarklet_host)s/javascripts/privacyscanner.js';document.getElementsByTagName('head')[0].appendChild(script);})()">Scan for Privacy</a>
+                    <a class='bookmarklet' title="Scan for Privacy" href="javascript:(function(){var%%20script=document.createElement('script');script.src='http://%(bookmarklet_host)s/javascripts/privacyscanner.js';document.getElementsByTagName('head')[0].appendChild(script);})()">Scan for Privacy<span class='helper-arrow arrow-on-%(browser)s'></span></a>
                 </strong>
             </p>
         </p>
@@ -349,7 +363,7 @@ class Help(webapp.RequestHandler):
             </p>
         </p>
         <p>
-            <h3>Why is the scanner stuck on the 2nd and 4th lines?</h3>
+            <h3>Why is the scanner stuck on the 4th and 6th lines?</h3>
             <p class='answer'>
                 We are currently working on fixing <a href='http://github.com/mjpizz/reclaimprivacy/issues#issue/2'>this bug</a> (if you are a programmer
                 and can help, let me know).  The easiest thing to do in the
@@ -496,8 +510,8 @@ class Donations(webapp.RequestHandler):
 
         <h1>What has been raised so far?</h1>
         <p>
-            As of Thursday, May 20th, the amount is about
-            <span class='donation-amount'>$2563</span>, donated by <span class='donation-people'>258 people</span>.
+            As of Sunday, May 23rd, the amount is about
+            <span class='donation-amount'>$2957</span>, donated by <span class='donation-people'>303 people</span>.
         </p>
         <p>
             <em class='soft'>
@@ -514,11 +528,10 @@ class Donations(webapp.RequestHandler):
             <a href='http://www.pledgie.com/campaigns/10721'><img alt='Click here to lend your support to: reclaimprivacy and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/10721.png?skin_name=chrome' border='0' width='149' height='37' /></a>
         </p>
 
-        <h1>Can I donate to buy you a beer instead?</h1>
+        <h1>Can I donate towards a nice dinner for you folks instead?</h1>
         <p>
-            Yea...could really use one about now in fact.  I don't have a separate
-            donation button, but if you leave
-            a note on your donation marking it for personal use, I am happy to accept.
+            Yep.  We don't have a separate donation button for that, but if you leave
+            a note on your donation marking it for personal use, we are happy to accept!
         </p>
 
     </div>
@@ -552,14 +565,13 @@ class Donations(webapp.RequestHandler):
 
 def _get_leftbar_content():
     return '''
-        <a href="http://www.reclaimprivacy.org"><img src='/images/logo.png' width='200' height='200' /></a>
-        <div>
-            <strong>ReclaimPrivacy</strong><span class='soft'>.org</span>
-        </div>
+        <a href="/"><img src='/images/logo.png?cb=2' width='200' height='200' /></a>
         <div class='donation-box'>
             <a href='http://www.pledgie.com/campaigns/10721'><img alt='Click here to lend your support to: reclaimprivacy and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/10721.png?skin_name=chrome' border='0' width='149' height='37' /></a>
             <br/>
-            donations help cover costs
+            <span class='donation-summary'>
+                <strong class='amount'>$2957</strong> raised from <strong class='people'>303</strong> people
+            </span>
             <br/>
             <a class='soft' href='/donations'>how will donations be used?</a>
         </div>
