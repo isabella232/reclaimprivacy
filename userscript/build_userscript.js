@@ -8,11 +8,11 @@
 var fs = require("fs");
 var sys = require("sys")
 
-var source = fs.readFileSync("../chrome_extension/inject.js");
+var source = fs.readFileSync("../chrome_extension/inject.js", "utf-8");
 var manifest = readJSONFile("../chrome_extension/manifest.json");
 var headers = constructHeaders(manifest);
 
-var localization_code = fs.readFileSync("getMessage.js");
+var localization_code = fs.readFileSync("getMessage.js", "utf-8");
 var localization_map = constructLocalizationMap("../chrome_extension/_locales");
 localization_code = localization_code.replace("var messages = {}", "var messages = " + (JSON.stringify(localization_map, null, 2)));
 
@@ -62,13 +62,13 @@ function constructHeaders(manifest) {
 }
 
 function constructStyleInjector(styles) {
-  styles = styles.map(function(style) {return fs.readFileSync(style)}).join("\n");
+  styles = styles.map(function(style) {return fs.readFileSync(style, "utf-8")}).join("\n");
   var jsStyleString = JSON.stringify(styles);
   return "$('body').append('<style>'+"+jsStyleString+"+'</style>');"
 }
 
 function readJSONFile(name) {
-  var source = fs.readFileSync(name);
+  var source = fs.readFileSync(name, "utf-8");
   try {
     return JSON.parse(source);
   } catch(e){
