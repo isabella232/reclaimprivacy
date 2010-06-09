@@ -8,16 +8,27 @@
 var fs = require("fs");
 var sys = require("sys")
 
-var source = fs.readFileSync("chrome_extension/inject.js", "utf-8");
 var manifest = readJSONFile("chrome_extension/manifest.json");
 var headers = constructHeaders(manifest);
+
+var sourceFiles = [];
+var styleFiles = [];
+manifest.content_scripts.forEach(function(content_script) {
+  content_script.js.forEach(function(js) {
+    sourceFiles.push("chrome_extension/" + js);
+  });
+  content_script.css.forEach(function(css) {
+    styleFiles.push("chrome_extension/" + css);
+  });
+});
+
+var source = constructSource(sourceFiles)
+var style_injector = constructStyleInjector(styleFiles);
 
 var localization_code = fs.readFileSync("getMessage.js", "utf-8");
 var localization_map = constructLocalizationMap("chrome_extension/_locales");
 localization_code = localization_code.replace("var messages = {}", "var messages = " + (JSON.stringify(localization_map, null, 2)));
 
-var styleFiles = manifest.content_scripts.map(function(content_script){return "chrome_extension/" + content_script.css});
-var style_injector = constructStyleInjector(styleFiles);
 
 source = source.replace("chrome.i18n.getMessage", "getMessage");
 
@@ -25,6 +36,13 @@ var finalFile = [headers,style_injector,localization_code,source].join("\n\n\n")
 try { fs.mkdirSync("userscript", 0755); } catch(e) { }
 fs.writeFile("userscript/reclaimprivacy.user.js", finalFile);
 
+function constructSource(sourceFiles) {
+  var sources = sourceFiles.map(function(sourceFile) {
+    var source = fs.readFileSync(sourceFile, "utf-8");
+    return "// " + sourceFile + "\n" + source;
+  })
+  return sources.join("\n\n");
+}
 
 //construct the localization map from the files in _locales
 function constructLocalizationMap(sourceDir) {
@@ -47,7 +65,6 @@ function constructHeaders(manifest) {
   headers.push("@namespace http://www.reclaimprivacy.org/userscript");
   headers.push("@description " + manifest.description);
   headers.push("@version " + manifest.version)
-  headers.push("@require http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js");
   
   var content_scripts = manifest.content_scripts || [];
   content_scripts.forEach(function(content_script) {
