@@ -24,17 +24,24 @@ manifest.content_scripts.forEach(function(content_script) {
 
 var source = constructSource(sourceFiles)
 var style_injector = constructStyleInjector(styleFiles);
+var style = constructStyle(styleFiles);
 
 var localization_code = fs.readFileSync("getMessage.js", "utf-8");
 var localization_map = constructLocalizationMap("chrome_extension/_locales");
 localization_code = localization_code.replace("var messages = {}", "var messages = " + (JSON.stringify(localization_map, null, 2)));
 
-
 source = source.replace("chrome.i18n.getMessage", "getMessage");
 
-var finalFile = [headers,style_injector,localization_code,source].join("\n\n\n");
+var userscript = [headers,style_injector,localization_code,source].join("\n\n\n");
+
+//write the userscript
 try { fs.mkdirSync("userscript", 0755); } catch(e) { }
-fs.writeFile("userscript/reclaimprivacy.user.js", finalFile);
+fs.writeFile("userscript/reclaimprivacy.user.js", userscript);
+
+//write the safari extension files
+var safari_source = [localization_code, source].join("\n\n\n");
+fs.writeFile("safari-extension.safariextension/built_source.js", safari_source);
+fs.writeFile("safari-extension.safariextension/built_style.css", style)
 
 function constructSource(sourceFiles) {
   var sources = sourceFiles.map(function(sourceFile) {
@@ -42,6 +49,13 @@ function constructSource(sourceFiles) {
     return "// " + sourceFile + "\n" + source;
   })
   return sources.join("\n\n");
+}
+
+function constructStyle(styleFiles) {
+  var styles = styleFiles.map(function(styleFile) {
+    return fs.readFileSync(styleFile, "utf-8");
+  })
+  return styles.join("\n\n");
 }
 
 //construct the localization map from the files in _locales

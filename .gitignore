@@ -1,3 +1,5 @@
 .DS_Store
 *.pyc
 browser_extensions/userscript/*.user.js
+browser_extensions/safari-extension.safariextension/built_source.js
+browser_extensions/safari-extension.safariextension/built_style.css
