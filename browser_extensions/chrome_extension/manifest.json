@@ -1,6 +1,6 @@
 {
   "name": "Reclaim Privacy",
-  "version": "0.1",
+  "version": "0.1.1",
   "description": "An independent and open tool for scanning and managing your Facebook privacy settings.",
   "default_locale": "en",
   "content_scripts": [
