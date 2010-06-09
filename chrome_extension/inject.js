@@ -1,14 +1,16 @@
 var toInject = [
   "<div id='reclaimPrivacyContainer'>",
-    '<a href="javascript:(function(){var%20script=document.createElement(\'script\');script.src=\'http://static.reclaimprivacy.org/javascripts/privacyscanner.js\';document.getElementsByTagName(\'head\')[0].appendChild(script);})()" id="reclaimPrivacyButton">',
+    '<a href="javascript:(function(){var%20script=document.createElement(\'script\');script.src=\'http://static.reclaimprivacy.org/javascripts/privacyscanner.js\';document.getElementsByTagName(\'head\')[0].appendChild(script);})()" id="reclaimPrivacyButton" style="color:#eee;">',
       chrome.i18n.getMessage("callToAction"),
     '</a>',
   "</div>"  
 ].join('');
 
 function inject() {
-  if ($("#reclaimPrivacyButton").length === 0)
+  if ($("#reclaimPrivacyButton").length === 0) {
     $("#pagelet_status_updater").append(toInject);
+    $("#pagelet_welcome_box").append(toInject);
+  }
 }
 
 inject();
