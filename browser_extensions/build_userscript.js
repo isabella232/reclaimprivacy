@@ -22,6 +22,7 @@ var style_injector = constructStyleInjector(styleFiles);
 source = source.replace("chrome.i18n.getMessage", "getMessage");
 
 var finalFile = [headers,style_injector,localization_code,source].join("\n\n\n");
+try { fs.mkdirSync("userscript", 0755); } catch(e) { }
 fs.writeFile("userscript/reclaimprivacy.user.js", finalFile);
 
 
